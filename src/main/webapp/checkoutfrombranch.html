@@ -1,0 +1,32 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" ng-click="closeCheckOutBookModal()"
+		aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">Check out books</h4>
+</div>
+<div class="modal-body">
+	<div class="form-group">
+		<div class="form-group">
+			<label for="sel1">Select branch first:</label> <select
+				class="form-control" id="sel1" ng-model="loan.branch"
+				ng-options="b.branchName for b in branches">
+			</select>
+		</div>
+	</div>
+</div>
+<div class="modal-body">
+	<div class="form-group">
+		<div class="form-group">
+			<label for="sel1">Select book:</label> <select class="form-control"
+				id="sel1" ng-model="loan.book"
+				ng-options="b.bookName for b in loan.branch.books">
+			</select>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" ng-click="closeCheckOutBookModal()" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn btn-primary" ng-click="checkOutBook()">Check Out book</button>
+</div>
+

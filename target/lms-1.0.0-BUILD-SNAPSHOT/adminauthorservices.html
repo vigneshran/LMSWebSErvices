@@ -1,0 +1,53 @@
+
+<div class="container" ng-controller="authorController">
+	<center>
+		<div class="jumbotron">
+			<h2>Add or delete or update authors here! We have about
+				{{authors.length}} authors in our database. Help us expand!</h2>
+		</div>
+	</center>
+
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="thumbnail">
+				<div class="caption">
+					<h3>Adding Authors</h3>
+					<p>We have about {{authors.length}} authors in our database.
+						Help us expand!</p>
+					<p>
+						<button type="button" class="btn btn-primary" role="button"
+								ng-click="showAddAuthorModal()">
+								Add Authors Now</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="thumbnail">
+				<div class="caption">
+					<h3>Updating and Deleting Authors</h3>
+					<p>From a list of well-curated database, this section provides
+						the opportunity to update and delete authors on the go!</p>
+					<p>
+					<p>
+						<a href="#/viewauthors" class="btn btn-primary" role="button">
+							Update or Delete Now! </a>
+					</p>
+					</p>
+
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-lg" id="addAuthorModal"
+			modal="addAuthorModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<ng-include src="'adminaddauthor.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,254 @@
+<div class="container">
+
+	<div ng-controller="basicBorrowerController">
+	
+		<div align="right">
+			<a class="btn btn-primary" href="#/borrower"> Log Out </a>
+		</div>
+		<br/>
+		<center>
+			<div class="jumbotron" ng-init="init()">
+				<h2>Hi, {{borrower.borrowerName}}. What do you want to do
+					today?</h2>
+			</div>
+		</center>
+
+		<div class="panel-group" id="accordion" align="center">
+			<div class="panel panel-info" id="panel1">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#collapseOne"
+							data-target="#collapseOne"> <text align="center"> View
+							my borrowing history </text></a>
+					</h4>
+
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse">
+					<br />
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Book Title</th>
+
+								<th>Branch Borrowed</th>
+
+								<th>Returned On</th>
+
+								<th>You missed the dead-line</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="l in others">
+								<td>{{l.book.bookName}}</td>
+								<td>{{l.branch.branchName}}</td>
+								<td>{{l.dateIn}}</td>
+								<td>{{l.overDue}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+					<br /> <br />
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<div align="right">
+			<span style="display: block; height: -100;"></span><a
+				class="btn btn-primary" ng-click="showCheckOutBookModal()"><span
+				class="glyphicon glyphicon-plus"></span> Check out a book! </a>
+		</div>
+		<div>
+			<ul class="nav nav-tabs">
+				<li class="active"><a ng-click="allBooksDue()"
+					data-toggle="tab">All Unreturned Books <span class="badge">
+							{{borrower.unreturnedLoans.length}}</span>
+				</a></li>
+				<li><a ng-click="allOverDueBooksDue()" data-toggle="tab">All
+						Overdue Books <span class="badge">
+							{{borrower.loansOverDue.length}}</span>
+				</a></li>
+			</ul>
+		</div>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Book Title</th>
+
+					<th>Branch Borrowed</th>
+
+					<th>Due On</th>
+
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="l in loans">
+					<td>{{l.book.bookName}}</td>
+					<td>{{l.branch.branchName}}</td>
+					<td>{{l.dueDate}}</td>
+					<td>
+						<button class="btn btn-primary" type="button"
+							ng-if="l.overDue == false"
+							ng-click="showConfirmReturnBookModal(l)">Return Book
+							Now!</button>
+
+						<button class="btn btn-danger" type="button"
+							ng-if="l.overDue == true"
+							ng-click="showConfirmReturnBookModal(l)">Return Book
+							Now!</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="modal fade bs-example-modal-lg" id="checkOutBookModal"
+			modal="checkOutBookModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<ng-include src="'checkoutfrombranch.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade bs-example-modal-lg"
+			id="confirmReturnBookModal" modal="confirmReturnBookModal"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								ng-click="closeConfirmReturnBookModal()" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">
+								You are about to return the book titled <i>
+									{{l.book.bookName}} </i> from {{l.branch.branchName}}. Proceed?
+							</h4>
+						</div>
+						<div class="modal-body">
+							<p>Before you return a book, make sure you are absolutely
+								sure. Once you make a mistake, it's a tedious process to put it
+								back in our database.</p>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" ng-click="closeConfirmReturnBookModal()">Close</button>
+								<button type="button" class="btn btn-primary"
+									ng-click="returnBook()">Return Book Now!</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+	$('#accordion').collapse({
+		hide : true
+	})
+</script>
+
+<style>
+/* custom inclusion of right, left and below tabs */
+.tabs-below>.nav-tabs, .tabs-right>.nav-tabs, .tabs-left>.nav-tabs {
+	border-bottom: 0;
+}
+
+.tab-content>.tab-pane, .pill-content>.pill-pane {
+	display: none;
+}
+
+.tab-content>.active, .pill-content>.active {
+	display: block;
+}
+
+.tabs-below>.nav-tabs {
+	border-top: 1px solid #ddd;
+}
+
+.tabs-below>.nav-tabs>li {
+	margin-top: -1px;
+	margin-bottom: 0;
+}
+
+.tabs-below>.nav-tabs>li>a {
+	-webkit-border-radius: 0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
+}
+
+.tabs-below>.nav-tabs>li>a:hover, .tabs-below>.nav-tabs>li>a:focus {
+	border-top-color: #ddd;
+	border-bottom-color: transparent;
+}
+
+.tabs-below>.nav-tabs>.active>a, .tabs-below>.nav-tabs>.active>a:hover,
+	.tabs-below>.nav-tabs>.active>a:focus {
+	border-color: transparent #ddd #ddd #ddd;
+}
+
+.tabs-left>.nav-tabs>li, .tabs-right>.nav-tabs>li {
+	float: none;
+}
+
+.tabs-left>.nav-tabs>li>a, .tabs-right>.nav-tabs>li>a {
+	min-width: 74px;
+	margin-right: 0;
+	margin-bottom: 3px;
+}
+
+.tabs-left>.nav-tabs {
+	float: left;
+	margin-right: 19px;
+	border-right: 1px solid #ddd;
+}
+
+.tabs-left>.nav-tabs>li>a {
+	margin-right: -1px;
+	-webkit-border-radius: 4px 0 0 4px;
+	-moz-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
+}
+
+.tabs-left>.nav-tabs>li>a:hover, .tabs-left>.nav-tabs>li>a:focus {
+	border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.tabs-left>.nav-tabs .active>a, .tabs-left>.nav-tabs .active>a:hover,
+	.tabs-left>.nav-tabs .active>a:focus {
+	border-color: #ddd transparent #ddd #ddd;
+	*border-right-color: #ffffff;
+}
+
+.tabs-right>.nav-tabs {
+	float: right;
+	margin-left: 19px;
+	border-left: 1px solid #ddd;
+}
+
+.tabs-right>.nav-tabs>li>a {
+	margin-left: -1px;
+	-webkit-border-radius: 0 4px 4px 0;
+	-moz-border-radius: 0 4px 4px 0;
+	border-radius: 0 4px 4px 0;
+}
+
+.tabs-right>.nav-tabs>li>a:hover, .tabs-right>.nav-tabs>li>a:focus {
+	border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+}
+
+.tabs-right>.nav-tabs .active>a, .tabs-right>.nav-tabs .active>a:hover,
+	.tabs-right>.nav-tabs .active>a:focus {
+	border-color: #ddd #ddd #ddd transparent;
+	*border-left-color: #ffffff;
+}
+</style>

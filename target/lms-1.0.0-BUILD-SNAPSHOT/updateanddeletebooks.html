@@ -1,0 +1,109 @@
+<div class="container">
+	<ul class="nav nav-pills nav-justified">
+		<li class="active"><a href="#admin">Admin Book Services</a></li>
+		<li><a href="#/adminauthor"> Admin Author Services</a></li>
+		<li><a href="#/adminbranch"> Admin Branch Services </a></li>
+		<li><a href="#/adminoverride">Admin Override Services</a></li>
+		<li><a href="#/adminpublisher">Admin Publisher Services</a></li>
+		<li><a href="#/adminborrower">Admin Borrower Services</a></li>
+	</ul>
+</div>
+<div class="container">
+	<div ng-controller="bookController">
+		<center>
+			<div class="jumbotron">
+				<h2>Add or delete or update books here! We have about
+					{{books.length}} books in our database. Help us expand!</h2>
+			</div>
+		</center>
+		
+		<div align="center">
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="searchString"
+							placeholder="Search for..." ng-change="searchBooks()">
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<ul class="pagination">
+						<li><a href="" ng-click="pagination.prevPage()">&laquo;</a></li>
+						<li ng-repeat="n in [] | range: pagination.numPages"
+							ng-class="{active: n == pagination.page}"><a href=""
+							ng-click="pagination.toPageId(n)">{{n+1}}</a></li>
+						<li><a href="" ng-click="pagination.nextPage()">&raquo;</a></li>
+					</ul>
+				</div>
+
+				<div class="col-sm-4">
+					<a class="btn btn-primary" ng-click="showAddBookModal()"><span
+						class="glyphicon glyphicon-plus"></span> Add a book </a>
+				</div>
+
+			</div>
+		</div>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Book</th>
+
+					<th>Update</th>
+
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="b in leftBooks | startFrom: pagination.page * pagination.perPage | limitTo: pagination.perPage">
+					<td>{{b.bookName}}</td>
+					<td>
+						<p>
+							<button type="button" class="btn btn-default" role="button"
+								ng-click="showEditBookModal(b.bookId)">Update
+								Book Now</button>
+						</p>
+					</td>
+					<td>
+						<p>
+							<button type="button" class="btn btn-default" role="button"
+								ng-click="showDeleteBookModal(b.bookId)">Delete
+								Book Now</button>
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="modal fade bs-example-modal-lg" id="editBookModal"
+			modal="editBookModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<ng-include src="'adminupdatebooks.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-lg" id="deleteBookModal"
+			modal="deleteBookModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<ng-include src="'admindeletebooks.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade bs-example-modal-lg" id="addBookModal"
+			modal="addBookModal" tabindex="-1" role="dialog"
+			aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<ng-include src="'adminaddbook.html'"></ng-include>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+

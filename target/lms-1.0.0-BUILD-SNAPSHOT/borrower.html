@@ -1,0 +1,29 @@
+
+<style>
+.small {
+	line-height: 10px;
+}
+
+.big {
+	line-height: 100px;
+}
+</style>
+<div ng-controller="authController">
+<center>
+	<div class="jumbotron">
+		<h2>Welcome, borrower! Enter your Card Number here!</h2>
+	</div>
+</center>
+	<center>
+		Enter number: <input type="text" ng-model="cardNo"> <br />
+	</center>
+	<br />
+	<br />
+	<div class=big>
+		<center>
+			<button type="button" ng-click = "checkNumber()" class="btn btn-primary">Sumbit</button>
+		</center>
+	</div>
+</div>
+
+

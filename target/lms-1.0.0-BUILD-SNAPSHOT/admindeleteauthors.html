@@ -1,0 +1,24 @@
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeDeleteAuthorModal()" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		You are about to delete the Author named <i>{{author.authorName}} </i>.
+		Proceed?
+	</h4>
+</div>
+
+<div class="modal-body">
+	<p>Before you delete an author, make sure you are absolutely sure.
+		Once you make a mistake, it's a tedious process to put it back in our
+		database.</p>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal"
+			ng-click="closeDeleteAuthorModal()">Close</button>
+		<button type="button" class="btn btn-primary"
+			ng-click="deleteAuthor()">Yes</button>
+	</div>
+</div>
+

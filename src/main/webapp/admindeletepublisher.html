@@ -1,0 +1,24 @@
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeDeletePublisherModal()" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		You are about to delete the publisher named <i>{{publisher.publisherName}} </i>.
+		Proceed?
+	</h4>
+</div>
+
+<div class="modal-body">
+	<p>Before you delete a publisher, make sure you are absolutely sure.
+		Once you make a mistake, it's a tedious process to put it back in our
+		database.</p>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal"
+			ng-click="closeDeletePublisherModal()">Close</button>
+		<button type="button" class="btn btn-primary"
+			ng-click="deletePublisher()">Yes</button>
+	</div>
+</div>
+
