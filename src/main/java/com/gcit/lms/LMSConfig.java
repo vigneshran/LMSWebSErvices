@@ -13,9 +13,9 @@ import com.gcit.lms.service.*;
 @Configuration
 public class LMSConfig {
 	public String driver = "com.mysql.jdbc.Driver";
-	public String url = "jdbc:mysql://localhost/library?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	public String username = "root";
-	public String password = "Future123$";
+	public String url = "jdbc:mysql://gcit.ceeyo6nqjosk.us-east-2.rds.amazonaws.com:3306/library";
+	public String username = "gcit";
+	public String password = "gcittraining$";
 	
 	@Bean
 	public BasicDataSource dataSource() {
