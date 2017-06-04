@@ -36,9 +36,9 @@ import com.gcit.lms.entity.Genre;
 import com.gcit.lms.entity.Loan;
 import com.gcit.lms.entity.Publisher;
 
+@CrossOrigin(origins = {"13.59.248.203:8080"}, maxAge = 4800, allowCredentials = "false")
 @RestController
 @RequestMapping(value = "/admin")
-@CrossOrigin(origins = {"13.59.248.203:8080"}, maxAge = 4800, allowCredentials = "false")
 public class AdminService {
 
 	@Autowired
