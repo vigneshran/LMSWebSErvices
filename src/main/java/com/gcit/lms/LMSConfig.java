@@ -6,12 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.gcit.lms.dao.*;
 import com.gcit.lms.service.*;
 
 @Configuration
-public class LMSConfig {
+@EnableWebMvc
+public class LMSConfig extends WebMvcConfigurerAdapter {
 	public String driver = "com.mysql.jdbc.Driver";
 	public String url = "jdbc:mysql://gcit.ceeyo6nqjosk.us-east-2.rds.amazonaws.com:3306/library";
 	public String username = "gcit";
@@ -28,6 +33,14 @@ public class LMSConfig {
 		return ds;
 	}
 	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    	}
+	
+	// llalla
+	
+
 	@Bean
 	public JdbcTemplate template() {
 		return new JdbcTemplate(dataSource());
