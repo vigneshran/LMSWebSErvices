@@ -36,6 +36,7 @@ import com.gcit.lms.entity.Genre;
 import com.gcit.lms.entity.Loan;
 import com.gcit.lms.entity.Publisher;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminService {
