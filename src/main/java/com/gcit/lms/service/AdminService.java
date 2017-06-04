@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.gcit.lms.dao.AuthorDAO;
 import com.gcit.lms.dao.BookDAO;
@@ -37,6 +38,7 @@ import com.gcit.lms.entity.Publisher;
 
 @RestController
 @RequestMapping(value = "/admin")
+@CrossOrigin(origins = {"13.59.248.203:8080"}, maxAge = 4800, allowCredentials = "false")
 public class AdminService {
 
 	@Autowired
