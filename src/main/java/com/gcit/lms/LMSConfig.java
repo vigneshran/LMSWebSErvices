@@ -1,12 +1,21 @@
 package com.gcit.lms;
 
+import java.io.IOException;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -36,7 +45,7 @@ public class LMSConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
-    	}
+    }
 	
 	// llalla
 	
@@ -92,4 +101,21 @@ public class LMSConfig extends WebMvcConfigurerAdapter {
 	public BorrowerDAO borrowerDao()	{
 		return new BorrowerDAO();
 	}
+	
+	@Component
+	public class CorsFilter extends OncePerRequestFilter {
+
+	    @Override
+	    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+	                                    final FilterChain filterChain) throws ServletException, IOException {
+	        response.addHeader("Access-Control-Allow-Origin", "*");
+	        response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, HEAD, OPTIONS");
+	        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+	        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials");
+	        response.addHeader("Access-Control-Allow-Credentials", "true");
+	        response.addIntHeader("Access-Control-Max-Age", 10);
+	        filterChain.doFilter(request, response);
+	    }
+	}
+
 }
